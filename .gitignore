@@ -39,3 +39,23 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+
+
+
+# 忽略 Node.js 的依賴
+/node_modules/
+
+# 忽略 Next.js 的產生檔案
+/.next/
+/out/
+
+# 忽略環境變數檔案
+.env
+
+# 忽略暫存檔案
+.DS_Store
+
+# 忽略 Log 檔案
+*.log
+
