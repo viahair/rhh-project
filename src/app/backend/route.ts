@@ -1,20 +1,26 @@
+// src/app/backend/route.ts
+
 import { NextResponse } from 'next/server';
-import supabase from '../lib/supabase';
+import { supabase } from '../lib/supabase';
 
-// 處理 POST 請求，將資料保存到 Supabase
 export async function POST(request: Request) {
-  const { name, phone } = await request.json();
+  try {
+    const { name, phone } = await request.json();
 
-  // 將資料插入到 Supabase 資料庫
-  const { data, error } = await supabase
-    .from('your_table_name') // 請替換為你的資料表名稱
-    .insert([
-      { name, phone }
-    ]);
+    // 儲存資料到 Supabase 資料表
+    const { data, error } = await supabase
+      .from('contacts')
+      .insert([
+        { name, phone }
+      ]);
 
-  if (error) {
-    return NextResponse.json({ message: '提交失敗，請再試一次！' }, { status: 500 });
+    if (error) {
+      throw error;
+    }
+
+    return NextResponse.json({ message: '資料已成功儲存', data });
+  } catch (error) {
+    console.error('儲存資料時出錯:', error);
+    return NextResponse.json({ message: '儲存資料失敗', error: error.message }, { status: 500 });
   }
-
-  return NextResponse.json({ message: '資料已提交！' }, { status: 200 });
 }

@@ -1,10 +1,10 @@
-import { createClient } from "@supabase/supabase-js";
+// src/app/lib/supabase.ts
 
-// 從環境變數中讀取 Supabase URL 和密鑰
-const supabaseUrl = process.env.SUPABASE_URL || "";
-const supabaseKey = process.env.SUPABASE_KEY || "";
+import { createClient } from '@supabase/supabase-js';
 
-// 創建 Supabase 客戶端
-const supabase = createClient(supabaseUrl, supabaseKey);
+// 從 .env 文件讀取 Supabase URL 和金鑰
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-export default supabase;
+// 創建 Supabase 客戶端實例
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
